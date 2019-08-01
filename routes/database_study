@@ -1,0 +1,55 @@
+-mysql 접속
+mysql -u root -p (처음 접속이라면 그냥 엔터, 설정한 비번이 있으면 입력후 엔터)
+
+-laravel 연습시 이용한 DB, USER 만들기
+  -DB 생성
+    create database myapp;
+  -USER 생성 및 권한 부여
+    create user 'homestead' identified by 'secret';
+    grant all privileges on myapp.* to 'homestead';
+    flush privileges;
+
+-테이블 만들기
+create table posts (
+    id int(11) unsigned not null auto_increment primary key,
+    title varchar(255),
+    body text
+) engine=InnoDB default charset=utf8 collate=utf8_unicode_ci;
+
+
+-라라벨이 제공하는 REPL => tinker (실행 명령어 : php artisan tinker)
+    -select
+    DB::select('SELECT * FROM posts');
+
+    -단일 데이터
+    DB::selectOne('SELECT * FROM posts');
+
+    -insert
+    DB::insert('INSERT INTO posts(title, body) VALUES(?,?)','['Hello Database','Greetings from tinker']');
+    DB::insert('INSERT INTO posts(title, body) VALUES(?,?)', ['Ola Database','Saludos de tinker']);
+
+
+-라라벨에서 사용하는 DB 조작방법(쿼리 빌더)
+ //DB::table() 과 같이 무조건 table 메서드로 시작
+ //끝은 get(), first(), find(), pluck(), insert(), delete(), update()와 같은 메서드를 사용
+
+ -데이터 조회
+ DB::table('posts')->get(); //전체
+ DB::table('posts')->get(['title']);    //원하는 열의 값만 조회
+ DB::table('posts')->first();   //맨처음
+ DB::table('posts')->find(2);   //해당 키값
+
+ -조건절
+ DB::table('posts')->where('id','=',1)->get();
+ DB::table('posts')->where('id',1)->get();  //두번째 인자인 연산자가 등호(=)라면 생략 가능
+ DB::table('posts')->whereId(1)->get(); //whereId는 동적 메서드고,대등[?] 조건에서만 사용 가능, 비교 기준이 되는 열을 낙타 표기법으로 표시 ex)created_at 이라는 열이 있으면 whereCreatedAt로 사용 가능
+ DB::table('posts')->where(function ($query) { $query->where('id',1); })->get();    //클로저 사용(복잡한 조건 연산을 할때 사용)
+
+ -자주 사용하는 다른 메서드들
+ DB::table('posts')->insert(['title'=>'test', 'body'=>'test body']);   //행 삽입
+ DB::table('posts')->where('id',3)->update(['body'=>'update success']);   //['array'=>'value']처럼 연관 배열 인자로 넘김 (조건없이 하면 전체 적용, 항상 조건절 사용하기)
+ DB::table('posts')->delete(3); //해당 키값 데이터 삭제
+ DB::table('posts')->where('id',1)->pluck('title');    //해당 열의 값으로만 구성된 컬렉션 조회
+ DB::table('posts')->limit(1)->get();   //조회되는 수를 제한한다
+ DB::table('posts')->orderBy('title', 'desc')->get();    //조회되는 결과를 정렬한다
+ 이 외에 count(), distinct(), select(DB::raw('count(*) as cnt')), join(), union(), whereNull(), whereNotNull(), having(), groupBy() 등 ..
