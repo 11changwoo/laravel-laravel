@@ -41,6 +41,7 @@ insert into authors(email, password) values('john@example.com', 'password');
     //DB::table() 과 같이 무조건 table 메서드로 시작
     //끝은 get(), first(), find(), pluck(), insert(), delete(), update()와 같은 메서드를 사용
 
+ (DB 파사드 -> DB::)
  -데이터 조회
     DB::table('posts')->get(); //전체
     DB::table('posts')->get(['title']);    //원하는 열의 값만 조회
@@ -62,6 +63,16 @@ insert into authors(email, password) values('john@example.com', 'password');
     DB::table('posts')->orderBy('title', 'desc')->get();    //조회되는 결과를 정렬한다
     이 외에 count(), distinct(), select(DB::raw('count(*) as cnt')), join(), union(), whereNull(), whereNotNull(), having(), groupBy() 등 ..
 
- -artisan으로 모델 만들기
-    php artisan make:model Post
-    php artisan make:model Author
+ (REPL 사용 상태)
+ (artisan으로 모델 만들고 난 후 모델이용)
+ -모델 쿼리
+    App\Author::get();
+
+ -새 인스턴스 생성 후 테이블 저장
+    $author = new App\Author;
+    $author->email = 'foo@bar.com';
+    $author->password = 'password';
+    $author->save();
+    //QueryException 발생 이유 : 엘로퀀트는 모든 테이블에 updated_at, created_at 열이 있다고 가정하고 새로운 인스턴스를 테이블에 저장할때 현재의 타임스탬프 값을 할당한다.
+    //그런데 언급한 열이 테이블에 없으므로 나타나는 것이다.
+    //해결 방법은 필요한 열을 만들거나, 엘로퀀트의 타임스탬프 자동 입력 기능을 끄는 방법으로 해결할 수 있다.

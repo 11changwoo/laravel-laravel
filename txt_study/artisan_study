@@ -1,0 +1,5 @@
+-사용한 artisan
+    php artisan tinker
+
+    php artisan make:model Post
+    php artisan make:model Author
