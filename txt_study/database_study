@@ -1,5 +1,5 @@
 -mysql 접속
-mysql -u root -p (처음 접속이라면 그냥 엔터, 설정한 비번이 있으면 입력후 엔터)
+    mysql -u root -p (처음 접속이라면 그냥 엔터, 설정한 비번이 있으면 입력후 엔터)
 
 -laravel 연습시 이용한 DB, USER 만들기
   -DB 생성
@@ -10,20 +10,32 @@ mysql -u root -p (처음 접속이라면 그냥 엔터, 설정한 비번이 있�
     flush privileges;
 
 -테이블 만들기
-create table posts (
-    id int(11) unsigned not null auto_increment primary key,
-    title varchar(255),
-    body text
-) engine=InnoDB default charset=utf8 collate=utf8_unicode_ci;
+    create table posts (
+        id int(11) unsigned not null auto_increment primary key,
+        title varchar(255),
+        body text
+    ) engine=InnoDB default charset=utf8 collate=utf8_unicode_ci;
 
-create table authors(
-    id int(11) unsigned not null auto_increment primary key,
-    email varchar(255),
-    password varchar(60) not null
-) engine=InnoDB default charset=utf8 collate=utf8_unicode_ci;
+    create table authors(
+        id int(11) unsigned not null auto_increment primary key,
+        email varchar(255),
+        password varchar(60) not null
+    ) engine=InnoDB default charset=utf8 collate=utf8_unicode_ci;
 
-insert into authors(email, password) values('john@example.com', 'password');
+    insert into authors(email, password) values('john@example.com', 'password');
 
+-테이블 삭제 시
+    -외래키가 걸려 있을 때를 대비해 오류를 방지하기 위한 코드
+        SET FOREIGN_KEY_CHECKS=0;
+
+    -테이블 삭제
+        drop table posts;
+        drop table authors;
+
+    -외래키 오류 방지하기 위해서 수정한 코드 되돌리기
+        SET FOREIGN_KEY_CHECKS=1;
+
+-- 이 후에는 REPL ( tinker 에서 연습해본 부분 )
 
 -라라벨이 제공하는 REPL => tinker (실행 명령어 : php artisan tinker)
     -select
