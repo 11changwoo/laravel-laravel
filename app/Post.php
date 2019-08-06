@@ -12,4 +12,10 @@ class Post extends Model
     //모델이름이 Author 면 테이블은 Authors 이름의 테이블을 쓰는게 관례.
     //만약 관례를 따르지 않는다면 알려줘야 한다.
     //ex)$table = 'user'; 처럼 사용하는 테이블 이름을 알려줘야한다.
+
+    //QueryExceptiona 발생시 타임스탬프 자동 입력 기능 끄는 방법
+    public $timestamps = false;
+
+    //MassAssignmentException 해결 방법 중 $fillable 사용한 방법
+    protected $fillable = ['title', 'body'];
 }

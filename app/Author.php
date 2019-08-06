@@ -15,4 +15,7 @@ class Author extends Model
 
     //QueryExceptiona 발생시 타임스탬프 자동 입력 기능 끄는 방법
     public $timestamps = false;
+
+    //MassAssignmentException 해결 방법 중 $fillable 사용한 방법
+    protected $fillable = ['email', 'password'];
 }

@@ -76,3 +76,13 @@ insert into authors(email, password) values('john@example.com', 'password');
     //QueryException 발생 이유 : 엘로퀀트는 모든 테이블에 updated_at, created_at 열이 있다고 가정하고 새로운 인스턴스를 테이블에 저장할때 현재의 타임스탬프 값을 할당한다.
     //그런데 언급한 열이 테이블에 없으므로 나타나는 것이다.
     //해결 방법은 필요한 열을 만들거나, 엘로퀀트의 타임스탬프 자동 입력 기능을 끄는 방법으로 해결할 수 있다.
+
+ -다른 메서드로 데이터 저장
+    //save() 메서드는 모델의 프로퍼티 값을 하나씩 할당해야해서 불편
+    //create() 메서드를 이용하면 새 레코드를 좀 더 편하게 만들 수 있다
+    App\Author::create([
+        'email' => 'bar@baz.com',
+        'password' => bcrypt('password'), //bcrypt : 단방향 해시를 만드는 도우미 함수(단방향이라 복호화 불가능)
+    ]);
+    //MassAssignmentException : 사용자가 넘겨준 값에서 허용할 열과 허용하지 않을 열을 구분하여 대량 할당 취약점으로부터 서비스를 보호하기 위한 장치
+    //엘로퀀트는 $fillable 프로퍼티를 이용하는 허용목록방식, $guarded 프로퍼티를 이용한 금지목록방식의 2가지 방법을 제공
