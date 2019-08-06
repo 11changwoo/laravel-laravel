@@ -1,5 +1,17 @@
--사용한 artisan
+*사용한 artisan
+    -팅커 실행
     php artisan tinker
 
+    -모델 생성(app 폴더 밑에 생성)
     php artisan make:model Post
     php artisan make:model Author
+
+    -migration 생성(database/migrations 폴더 밑에 생성)
+    php artisan make:migration create_posts_table --create=posts
+    php artisan make:migration create_authors_table --create=authors
+
+    -마이그레이션 실행
+    php artisan migrate
+
+    -마이그레이션 롤백
+    php artisan migrate:rollback
