@@ -11,16 +11,5 @@
 |
 */
 
-Route::redirect('/', '/login');
-
-//Route::get('/{str?}', function($str = 'login') {
-//   return redirect(route('login'));
-//});
-
-Route::get('/login', [
-    'as' => 'login',
-    function() {
-        return view('login');
-    }
-]);
+Route::get('/', 'WelcomeController@index');
 

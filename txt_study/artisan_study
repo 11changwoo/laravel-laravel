@@ -5,3 +5,6 @@
     -모델 생성(app 폴더 밑에 생성)
     php artisan make:model Post
     php artisan make:model Author
+
+    -컨트롤러 생성
+    php artisan make:controller WelcomeController
