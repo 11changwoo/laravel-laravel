@@ -8,3 +8,9 @@
 
     -컨트롤러 생성
     php artisan make:controller WelcomeController
+
+    -RESTfull 리소스 컨트롤러 만들기
+    php artisan make:controller ArticlesController --resource
+
+    -라우트 목록 확인
+    php artisan route:list

@@ -1,5 +1,5 @@
 <?php
-
+//API 서비스를 위한 라우트
 use Illuminate\Http\Request;
 
 /*

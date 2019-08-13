@@ -4,6 +4,10 @@ namespace App\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
+//미들웨어는 HTTP 요청이 도메인 로직에 닿기 전에 요청을 필터링하는 일을 한다.
+//전역 미들웨어와 라우트 미들웨어로 구분된다.
+//전역 미들웨어는 무조건 거쳐야 하는 미들웨어
+//라우트 미들웨어는 특정 라우트에만 적용되는데, 라우트를 정의할 때 적용할 미들웨어의 별칭을 써주면 된다.
 class Kernel extends HttpKernel
 {
     /**
