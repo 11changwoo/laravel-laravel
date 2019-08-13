@@ -24,6 +24,8 @@ class User extends Authenticatable
      *
      * @var array
      */
+    //public 으로 선언된 모델 프로퍼티 값을 은닉하는 방법이 $hidden
+    //직접접근하면 값을 읽거나 쓸 수 있다.
     protected $hidden = [
         'password', 'remember_token',
     ];

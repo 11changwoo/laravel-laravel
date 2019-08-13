@@ -1,5 +1,5 @@
 <?php
-
+//쿠키에 사용할 키를 이 파일에서 변경할 수 있다.
 use Illuminate\Support\Str;
 
 return [
