@@ -12,5 +12,8 @@
     -RESTfull 리소스 컨트롤러 만들기
     php artisan make:controller ArticlesController --resource
 
+    -라라벨 내장 사용자 인증 기능 초기화
+    php artisan make:auth
+
     -라우트 목록 확인
     php artisan route:list
