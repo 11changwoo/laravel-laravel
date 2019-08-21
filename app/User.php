@@ -38,4 +38,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    //다(many)가 되는 쪽 모델로 접근하는 메서드 이름은 복수
+    public function articles() {
+        return $this->hasMany(Article::class, 'user_id'); // 나(user)는 여러 개의 article 을 가지고 있다.
+    }
 }
