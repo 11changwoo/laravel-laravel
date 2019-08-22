@@ -1,0 +1,27 @@
+-데이터베이스 시딩(database/seeds)
+    데이터베이스 테이블에 데이터를 심는 행위
+    서비스 구성에 필요한 기본 데이터, 개발 중에 필요한 데이터, 테스트를 위한 데이터를 빠르게 준비할 때 사용
+    라라벨은 클래스 문법으로 데이터 시딩을 자동화할 수 있는 방법을 제공
+
+
+    *Class UsersTableSeeder does not exist 오류 발생시 : composer dump-autoload
+    *시더 클래스를 작성하고 나면 dump-autoload 명령어를 사용해 컴포저의 오토로더를 다시 생성할 필요가 있다.
+
+    -시더 클래스 뼈대 만들기
+        php artisan make:seeder UsersTableSeeder
+
+    -시더 실행
+        php artisan db:seed --class=UsersTableSeeder
+
+-모델 팩토리
+    더미 데이터를 빠르게 만들기 위한 도구
+
+    (tinker 에서 사용 / 모델 팩토리 맛보기)
+        factory(App\User::class)->make();
+        factory(App\User::class)->make(['name'=>'Foo']);
+
+-마이그레이션과 시딩
+    개발 중에는 테스트 레코드를 만들었다 지웠다를 반복하게 된다. 이때 마이그레이션과 시딩을 한 번에 하면 편하다.
+
+    -마이그레이션과 시딩 한 번에 실행
+        php artisan migrate:refresh --seed
