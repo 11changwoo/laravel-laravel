@@ -13,7 +13,7 @@
 
 Auth::routes();
 
-Route::resource('articles', 'ArticlesController_2');
+Route::resource('articles', 'ArticlesController_3');
 
 //DB::listen((function($query) {
 ////    var_dump($query->sql);
