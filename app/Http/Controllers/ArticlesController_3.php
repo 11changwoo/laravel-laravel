@@ -21,10 +21,16 @@ class ArticlesController_3 extends Controller
             'content' => ['required', 'min:10'],
         ];
 
+        $messages = [
+          'title.required' => '제목은 필수 입력 항목입니다.',
+          'content.required' => '본문은 필수 입력 항목입니다.',
+          'content.min' => '본문은 최소 :min 글자 이상이 필요합니다.'
+        ];
+
         /*
-         * make() 메서드의 첫 번째 인자는 검사의 대상이 되는 폼 데이터, 두 번째는 검사규칙
+         * make() 메서드의 첫 번째 인자는 검사의 대상이 되는 폼 데이터, 두 번째는 검사규칙, 세 번째는 사용자 정의 오류 메시지를 지정한다.
          * */
-        $validator = \Validator::make($request->all(), $rules);
+        $validator = \Validator::make($request->all(), $rules, $messages);
 
         /*
          * 유효성을 검사
@@ -39,12 +45,22 @@ class ArticlesController_3 extends Controller
             return back()->withErrors($validator)->withInput();
         }
 
+        /*
+         * 실전에서는 auth()->user()->articles()->... 와 같이 현재 로그인한 사용자 인스턴스를 이용
+         * request->all()은 사용자가 요청한 쿼리 스트링 또는 폼 데이터 전체를 연관배열로 반환
+         * */
         $article = \App\User::find(1)->articles()->create($request->all());
 
         if (!$article) {
+            /*
+             * with()메서드는 인자로 받은 키-값 쌍을 세션에 저장
+             * */
             return back()->with('flash_message', '글이 저장되지 않았습니다.')->withInput();
         }
 
+        /*
+         * redirect() 페이지 이동을 시킨다.
+         * */
         return redirect(route('articles.index'))->with('flash_message', '작성하신 글이 저장되었습니다.');
     }
 
