@@ -17,3 +17,6 @@
 
     -라우트 목록 확인
     php artisan route:list
+
+    -폼 리퀘스트 클래스 뼈대 코드 만들기
+    php artisan make:request ArticlesRequest
